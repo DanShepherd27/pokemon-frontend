@@ -43,7 +43,6 @@ export default function Home() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex flex-col items-center h-screen">
-        <div>Hello, Pokemon!</div>
         <PokemonTypeSelector />
         {pokemons.map((pokemon: string, index: number) => (
           <PokemonPreview data={pokemon} key={index} />
