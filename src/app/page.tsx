@@ -10,7 +10,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Pokemon } from "@/lib/types/Pokemon";
 import { usePokemonStore } from "@/store/use-pokemon-store";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
@@ -55,7 +54,7 @@ export default function Home() {
             <PokemonPreview name={pokemon} key={index} />
           ))}
         </div>
-        {selectedPokemon?.name !== "" && <PokemonCardView />}
+        {selectedPokemon && selectedPokemon?.name !== "" && <PokemonCardView />}
       </div>
     </div>
   );
