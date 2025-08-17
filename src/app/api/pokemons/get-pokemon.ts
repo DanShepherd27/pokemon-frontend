@@ -1,6 +1,6 @@
 "use server";
 
-import { Pokemon } from "@/lib/types/Pokemon";
+import { Pokemon } from "@/lib/types/pokemon";
 import axios, { HttpStatusCode } from "axios";
 
 export async function getPokemon(name: string): Promise<Pokemon | null> {

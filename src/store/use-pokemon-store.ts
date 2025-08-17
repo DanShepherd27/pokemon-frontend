@@ -3,7 +3,7 @@
 import { getPokemonTypes } from "@/app/api/pokemon-types/get-pokemon-types";
 import { getPokemon } from "@/app/api/pokemons/get-pokemon";
 import { getPokemons } from "@/app/api/pokemons/get-pokemons";
-import { Pokemon } from "@/lib/types/Pokemon";
+import { Pokemon } from "@/lib/types/pokemon";
 import { create } from "zustand";
 
 /**
