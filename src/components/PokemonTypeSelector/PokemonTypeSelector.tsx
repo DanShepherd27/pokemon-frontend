@@ -1,4 +1,4 @@
-import { usePokemonTypesStore } from "@/store/use-pokemon-types-store";
+import { usePokemonStore } from "@/store/use-pokemon-store";
 import {
   Select,
   SelectContent,
@@ -19,14 +19,22 @@ import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
  * )
  */
 export default function PokemonTypeSelector() {
-  const { types, fetchTypes } = usePokemonTypesStore();
+  const { types, fetchTypes, fetchPokemons } = usePokemonStore();
 
   useEffect(() => {
     (async () => await fetchTypes())();
   }, [fetchTypes]);
 
+  const loadPokemonsOfType = async (type: string) => {
+    await fetchPokemons(type);
+  };
+
   return (
-    <Select onValueChange={() => {}}>
+    <Select
+      onValueChange={(value: string) => {
+        loadPokemonsOfType(value);
+      }}
+    >
       <SelectTrigger>
         <SelectValue placeholder="Select from the list" />
       </SelectTrigger>
@@ -36,7 +44,7 @@ export default function PokemonTypeSelector() {
             <LoadingSpinner />
           </div>
         ) : (
-          types.map((type) => (
+          types.map((type: string) => (
             <SelectItem key={type} value={type}>
               {type}
             </SelectItem>
