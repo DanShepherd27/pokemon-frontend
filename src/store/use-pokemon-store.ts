@@ -1,7 +1,9 @@
 "use client";
 
 import { getPokemonTypes } from "@/app/api/pokemon-types/get-pokemon-types";
+import { getPokemon } from "@/app/api/pokemons/get-pokemon";
 import { getPokemons } from "@/app/api/pokemons/get-pokemons";
+import { Pokemon } from "@/lib/types/Pokemon";
 import { create } from "zustand";
 
 /**
@@ -13,6 +15,8 @@ export interface PokemonStoreState {
 
   pokemons: string[];
 
+  selectedPokemon?: Pokemon | null;
+
   /**
    * Fetches the Pokemon types and updates the store.
    * @returns A promise that resolves when the types have been fetched.
@@ -20,6 +24,8 @@ export interface PokemonStoreState {
   fetchTypes: () => Promise<void>;
 
   fetchPokemons: (type: string) => Promise<void>;
+
+  setSelectedPokemon: (pokemon: string) => void;
 }
 
 /**
@@ -29,12 +35,17 @@ export interface PokemonStoreState {
 export const usePokemonStore = create<PokemonStoreState>((set) => ({
   types: [],
   pokemons: [],
+  selectedPokemon: undefined,
   fetchTypes: async () => {
     const types = await getPokemonTypes();
     set({ types });
   },
-  fetchPokemons: async (type: string) => {
+  fetchPokemons: async (type: string): Promise<void> => {
     const pokemons = await getPokemons(type);
     set({ pokemons });
   },
+  setSelectedPokemon: async (pokemon: string): Promise<void> =>
+    set({
+      selectedPokemon: await getPokemon(pokemon),
+    }),
 }));

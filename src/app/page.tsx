@@ -1,5 +1,6 @@
 "use client";
 
+import PokemonCardView from "@/components/PokemonCardView/PokemonCardView";
 import PokemonPreview from "@/components/PokemonPreview/PokemonPreview";
 import PokemonTypeSelector from "@/components/PokemonTypeSelector/PokemonTypeSelector";
 import SearchBar from "@/components/SearchBar/SearchBar";
@@ -9,6 +10,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { Pokemon } from "@/lib/types/Pokemon";
 import { usePokemonStore } from "@/store/use-pokemon-store";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
@@ -17,7 +19,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [session, setSession] = useState<Session | null>(null);
-  const { pokemons } = usePokemonStore();
+  const { pokemons, selectedPokemon } = usePokemonStore();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -50,9 +52,10 @@ export default function Home() {
         <PokemonTypeSelector />
         <div className="mt-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {pokemons.map((pokemon: string, index: number) => (
-            <PokemonPreview data={pokemon} key={index} />
+            <PokemonPreview name={pokemon} key={index} />
           ))}
         </div>
+        {selectedPokemon?.name !== "" && <PokemonCardView />}
       </div>
     </div>
   );

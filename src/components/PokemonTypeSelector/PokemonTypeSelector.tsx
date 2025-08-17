@@ -35,7 +35,7 @@ export default function PokemonTypeSelector() {
         loadPokemonsOfType(value);
       }}
     >
-      <SelectTrigger>
+      <SelectTrigger className="w-1/8">
         <SelectValue placeholder="Select from the list" />
       </SelectTrigger>
       <SelectContent>
