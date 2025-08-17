@@ -1,4 +1,3 @@
-import { Pokemon } from "@/lib/types/Pokemon";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { usePokemonStore } from "@/store/use-pokemon-store";
@@ -8,10 +7,11 @@ export default function PokemonCardView() {
 
   return (
     <Card className="m-4 h-100 w-100">
-      <CardContent className="flex flex-col">
+      <CardContent className="flex flex-col items-center justify-start">
         <Image
           src={selectedPokemon?.imageUrl || ""}
           alt={selectedPokemon?.name || "no image"}
+          height={150}
           width={150}
         />
         <h3>{selectedPokemon?.name}</h3>
